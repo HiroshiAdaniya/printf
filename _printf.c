@@ -10,10 +10,8 @@ int _printf(const char *format, ...)
 	int count = 0;
 	char *string;
 	va_list list;
-	/* note for one of the requirements: %n st*/
 
 	va_start(list, format);
-	
 	for (j = 0; format[j] != '\0' && format != NULL; j++)
 	{
 		if (format[j] == '%' && format[j + 1] == 'c')
@@ -25,13 +23,12 @@ int _printf(const char *format, ...)
 		}
 		else if (format[j] == '%' && format[j + 1] == 's')
 		{
-			k = 0;
 			string = va_arg(list, char *);
-			while (string != NULL && string[k] != '\0')
+			while (string != NULL && string != '\0')
 			{
 				write(1, string, k);
-				k++;
 				count++;
+				string++;
 			}
 			j++;
 		}
@@ -48,6 +45,5 @@ int _printf(const char *format, ...)
 		}
 	}
 	va_end(list);
-	/* should return with a variable that stores data form %n*/
 	return (count);
 }
