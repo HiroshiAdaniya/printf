@@ -1,53 +1,47 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdarg.h>
-
 /**
- * _printf - prints formatted output to stdout
- * @format: character string containing format specifiers
- * Return: number of characters printed (excluding the null byte)
+ * _printf - prints arguments to the stdout (1)
+ * @format: character string
+ * Return: number of characters printed / int
  */
 int _printf(const char *format, ...)
 {
-    int j, k = 0, ch = 0;
-    char *string;
-    va_list list;
+	int i, j, k = 0;
+	int ch = 0;
+	char *string;
+	va_list list;
+	/* note for one of the requirements: %n stores the number of characters printed */
+	while (format[i] != '\0')
+		i++;
 
-    va_start(list, format);
-
-    for (j = 0; format[j] != '\0'; j++)
-    {
-        if (format[j] == '%' && format[j + 1] == 'c')
-        {
-            string = va_arg(list, char *);
-            write(1, &string, 1);
-            ch++;
-            j++;
-        }
-        else if (format[j] == '%' && format[j + 1] == 's')  // Handle %s specifier
-        {
-            k = 0;
-            string = va_arg(list, char *);
-            while (string != NULL && string[k] != '\0')
-                k++;
-            write(1, string, k);
-            ch += k;
-            j++;
-        }
-        else if (format[j] == '%' && format[j + 1] == '%')
-        {
-            write(1, "%", 1);
-            ch++;
-            j++;
-        }
-        else
-        {
-            write(1, &format[j], 1);
-            ch++;
-        }
-    }
-
-    va_end(list);
-
-    return ch;
+	va_start(list, format);
+	
+	for (j = 0; j < i; j++)
+	{
+		if (format[j] == '%' && format[j + 1] == 'c')
+		{
+			string = va_arg(list, char *);
+			write(1, &string, 1);
+			j++;
+		}
+		else if (format[j] == '%' && format[j + 1] == 's')
+		{
+			k = 0;
+			string = va_arg(list, char *);
+			while (string != NULL && string[k] != '\0')
+				k++;
+			write(1, string, k);
+			j++;
+		}
+		else if (format[j] == '%' && format[j + 1] == '%')
+		{
+			write(1, "%", 1);
+			j++;
+		}
+		else
+			write(1, &format[j], 1);
+	}
+	va_end(list);
+	/* should return with a variable that stores data form %n*/
+	return (0);
 }
