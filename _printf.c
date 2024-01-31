@@ -6,9 +6,9 @@
  */
 int _printf(const char *format, ...)
 {
-	int j = 0;
-	int count = 0;
+	int j, count = 0;
 	char *string;
+	char c;
 	va_list list;
 
 	va_start(list, format);
@@ -16,8 +16,8 @@ int _printf(const char *format, ...)
 	{
 		if (format[j] == '%' && format[j + 1] == 'c')
 		{
-			string = va_arg(list, char *);
-			write(1, string, 1);
+			c = va_arg(list, int);
+			write(1, &c, 1);
 			j++;
 			count++;
 		}
