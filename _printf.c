@@ -6,48 +6,45 @@
  */
 int _printf(const char *format, ...)
 {
-	int j, count = 0;
+	int count = 0;
 	char *string;
 	char c;
 	va_list list;
 
 	va_start(list, format);
-	for (j = 0; format != NULL && format[j] != '\0'; j++)
+	if (format == NULL)
+		return (-1);
+	while (*format != '\0')
 	{
-		if (format[j] == '%' && format[j + 1] == 'c')
+		if (*format != '%')
 		{
-			c = va_arg(list, int);
-			if (c == 0)
-				return (-1);
-			write(1, &c, 1);
-			j++;
-			count++;
-		}
-		else if (format[j] == '%' && format[j + 1] == 's')
-		{
-			string = va_arg(list, char *);
-			if (string == NULL)
-				return (NULL);
-			while (*string != '\0')
-			{
-				write(1, string, 1);
-				count++;
-				string++;
-			}
-			j++;
-		}
-		else if (format[j] == '%' && format[j + 1] == '%')
-		{
-			write(1, "%", 1);
-			j++;
-			count++;
+			count += write(1, format, 1);
 		}
 		else
 		{
-			write(1, &format[j], 1);
-			count++;
+			format++;
+			if (*format == '%')
+			{
+				count += write(1, "%", 1);
+			}
+			else if (*format == 'c')
+			{
+				c = va_arg(list, int);
+				count += write(1, &c, 1);
+			}
+			else if (*format == 's')
+			{
+				string = va_arg(list, char *);
+				while (*string != '\0')
+				{
+					count += write(1, string, 1);
+					string++;
+				}
+			}
 		}
+		format++;
 	}
 	va_end(list);
 	return (count);
 }
+
