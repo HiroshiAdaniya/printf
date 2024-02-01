@@ -24,7 +24,7 @@ int _printf(const char *format, ...)
 		else if (format[j] == '%' && format[j + 1] == 's')
 		{
 			string = va_arg(list, char *);
-			while (string != NULL && *string != '\0')
+			while (*string != '\0')
 			{
 				write(1, string, 1);
 				count++;
