@@ -17,6 +17,8 @@ int _printf(const char *format, ...)
 		if (format[j] == '%' && format[j + 1] == 'c')
 		{
 			c = va_arg(list, int);
+			if (c == 0)
+				return (-1);
 			write(1, &c, 1);
 			j++;
 			count++;
@@ -24,6 +26,8 @@ int _printf(const char *format, ...)
 		else if (format[j] == '%' && format[j + 1] == 's')
 		{
 			string = va_arg(list, char *);
+			if (string == NULL)
+				return (NULL);
 			while (*string != '\0')
 			{
 				write(1, string, 1);
