@@ -71,7 +71,7 @@ int handleFormatSpecifier(const char *specifier, va_list list)
 			string++;
 		}
 	}
-	else if (*specifier == 'd')
+	else if (*specifier == 'd' || *specifier == 'i')
 	{
 		int d = va_arg(list, int);
 
