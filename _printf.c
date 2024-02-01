@@ -56,6 +56,9 @@ int handleFormatSpecifier(const char *specifier, va_list list)
 	{
 		char *string = va_arg(list, char *);
 
+		if (string == NULL)
+			string = "(null)";
+
 		while (*string != '\0')
 		{
 			count += write(1, string, 1);
