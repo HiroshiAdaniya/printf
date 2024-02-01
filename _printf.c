@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 				return (-1);
 			if (*format == '%')
 				count += write(1, "%", 1);
-			else if (*format == 'c' || *format == 's' || *format == 'd')
+			else if (*format == 'c' || *format == 's' || *format == 'd' || *format == 'i')
 				count += handleFormatSpecifier(format, list);
 			else
 			{
