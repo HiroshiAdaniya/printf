@@ -26,7 +26,7 @@ int _printf(const char *format, ...)
 			else if (*format == 'c' || *format == 's')
 				count += handleFormatSpecifier(format, list);
 			else
-				return (-1);
+				count += write(1, format, 1);
 		}
 		format++;
 	}
