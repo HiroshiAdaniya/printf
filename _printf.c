@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 				return (-1);
 			if (*format == '%')
 				count += write(1, "%", 1);
-			else if (*format == 'c' || *format == 's')
+			else if (*format == 'c' || *format == 's' || *format == 'd')
 				count += handleFormatSpecifier(format, list);
 			else
 			{
@@ -70,19 +70,57 @@ int handleFormatSpecifier(const char *specifier, va_list list)
 			string++;
 		}
 	}
+	else if (*specifier == 'd')
+	{
+		int d = va_arg(list, int);
+
+		if (d == 0)
+			count += write(1, "0", 1);
+		else
+			count += itoc(d);
+	}
 	return (count);
 }
+/**
+ * itoc - converts an int to a char string
+ * @d: an integer
+ * Return: nothing / void
+ */
+int itoc(int d)
+{
+	char *buffer;
+	char swop;
+	int i = 0;
+	int j = d;
+	int num, count = 0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	while (j != 0)
+	{
+		j = j / 10;
+		i++;
+	}
+	buffer = malloc(sizeof(char) * i);
+	if (buffer == NULL)
+		return (0);
+	i = 0;
+	if (d < 0)
+	{
+		count += write(1, "-", 1);
+		d = d * -1;
+	}
+	while (d > 0)
+	{
+		num = d % 10;
+		buffer[i++] = num + '0';
+		d = d / 10;
+	}
+	for (j = 0; j < i / 2; j++)
+	{
+		swop = buffer[j];
+		buffer[j] = buffer[i - j - 1];
+		buffer[i - j - 1] = swop;
+	}
+	count += write(1, buffer, i);
+	free(buffer);
+	return (count);
+}

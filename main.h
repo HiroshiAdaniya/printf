@@ -9,5 +9,5 @@
 int _printf(const char *format, ...);
 
 int handleFormatSpecifier(const char *specifier, va_list arg_list);
-
+int itoc(int);
 #endif
