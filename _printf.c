@@ -23,8 +23,6 @@ int _printf(const char *format, ...)
 		else
 		{
 			format++;
-			if (*format == '\0')
-				return (-1);
 			if (*format == '%')
 				count += write(1, "%", 1);
 			else if (*format == 'c')
@@ -41,6 +39,8 @@ int _printf(const char *format, ...)
 					string++;
 				}
 			}
+			else
+				return (-1);
 		}
 		format++;
 	}
