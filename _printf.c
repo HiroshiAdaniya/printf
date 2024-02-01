@@ -22,13 +22,13 @@ int _printf(const char *format, ...)
 		{
 			format++;
 			if (*format == '\0')
-				return (count);
+				return (-1);
 			if (*format == '%')
 				count += write(1, "%", 1);
 			else if (*format == 'c' || *format == 's')
 				count += handleFormatSpecifier(format, list);
 			else
-				count += write(1, format, 1);
+				count = write(1, format, 1);
 		}
 		format++;
 	}
