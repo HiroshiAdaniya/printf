@@ -7,8 +7,6 @@
 int _printf(const char *format, ...)
 {
 	int count = 0;
-	char *string;
-	char c;
 	va_list list;
 
 	va_start(list, format);
@@ -27,9 +25,6 @@ int _printf(const char *format, ...)
 				count += write(1, "%", 1);
 			else if (*format == 'c' || *format == 's')
 				count += handleFormatSpecifier(format, list);
-			else if (*format == 's')
-			{
-			}
 			else
 				return (-1);
 		}
