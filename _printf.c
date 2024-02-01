@@ -21,6 +21,8 @@ int _printf(const char *format, ...)
 		else
 		{
 			format++;
+			if (*format == '\0')
+				return (count);
 			if (*format == '%')
 				count += write(1, "%", 1);
 			else if (*format == 'c' || *format == 's')
