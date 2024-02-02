@@ -74,7 +74,7 @@ int handleFormatSpecifier(const char *specifier, va_list list)
 	else if (*specifier == 'd' || *specifier == 'i')
 	{
 		int d = va_arg(list, int);
-		
+
 		if (d == 0)
 			count += write(1, "0", 1);
 		else
