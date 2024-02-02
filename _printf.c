@@ -74,7 +74,7 @@ int handleFormatSpecifier(const char *specifier, va_list list)
 	else if (*specifier == 'd' || *specifier == 'i')
 	{
 		int d = va_arg(list, int);
-
+		
 		if (d == 0)
 			count += write(1, "0", 1);
 		else
@@ -97,12 +97,12 @@ int itoc(int d)
 
 	while (j != 0)
 	{
-		j = j / 10;
 		i++;
+		j = j / 10;
 	}
 	buffer = malloc(sizeof(char) * i);
 	if (buffer == NULL)
-		return (0);
+		return (-1);
 	i = 0;
 	if (d < 0)
 	{
@@ -112,8 +112,9 @@ int itoc(int d)
 	while (d > 0)
 	{
 		num = d % 10;
-		buffer[i++] = num + '0';
+		buffer[i] = num + '0';
 		d = d / 10;
+		i++;
 	}
 	for (j = 0; j < i / 2; j++)
 	{
