@@ -81,7 +81,6 @@ int handleFormatSpecifier(const char *specifier, va_list list)
 			count += itoc(d);
 	}
 
-	printf("count --- %d\n", count);
 	return (count);
 }
 /**
@@ -92,8 +91,7 @@ int handleFormatSpecifier(const char *specifier, va_list list)
 int itoc(int d)
 {
 	char *buffer;
-	char swop;
-	unsigned int i, j, num, swap = 0;
+	unsigned int i, j, k, num, swap = 0;
 	unsigned int count = 0;
 
 	if (d < 0)
@@ -103,7 +101,6 @@ int itoc(int d)
 	} else
 		swap = d;
 
-	i = 0;
 	j = swap;
 	while (j != 0)
 	{
@@ -114,21 +111,15 @@ int itoc(int d)
 	if (buffer == NULL)
 		return (-1);
 
+	k = i;
 	while (swap > 0)
 	{
 		num = swap % 10;
-		buffer[i] = num + '0';
+		buffer[i - 1] = num + '0';
 		swap = swap / 10;
-		i++;
+		i--;
 	}
-	for (j = 0; j < i / 2; j++)
-	{
-		swop = buffer[j];
-		buffer[j] = buffer[i - j - 1];
-		buffer[i - j - 1] = swop;
-	}
-	count += write(1, buffer, i);
+	count += write(1, buffer, k);
 	free(buffer);
-	printf("count --- %d\n", count);
 	return (count);
 }
