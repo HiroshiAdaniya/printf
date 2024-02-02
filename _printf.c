@@ -91,9 +91,10 @@ int handleFormatSpecifier(const char *specifier, va_list list)
 int itoc(int d)
 {
 	char *buffer;
-	unsigned int i, j, k, num, swap = 0;
-	unsigned int count = 0;
+	int i, j, k = 0;
+	unsigned int count, swap, num;
 
+	count = 0;
 	if (d < 0)
 	{
 		count = count + write(1, "-", 1);
@@ -120,6 +121,7 @@ int itoc(int d)
 		i--;
 	}
 	count += write(1, buffer, k);
+
 	free(buffer);
 	return (count);
 }
